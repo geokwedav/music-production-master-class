@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Class | Electronic Music Production</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette */
+            --background: #000000;
+            --foreground: #ffffff;
+            --muted: #4b5563;
+            --muted-foreground: #9ca3af;
+            --accent: #22c55e; 
+            --accent-glow: rgba(34, 197, 94, 0.2);
+            --border: #1a1a1a;
+            --card: #0a0a0a;
+            --nav-bg: rgba(0, 0, 0, 0.9);
+            
+            /* White Section Variables */
+            --white-section-bg: #ffffff;
+            --white-section-text: #000000;
+            --white-section-muted: #64748b;
+            --white-section-border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Green Glows */
+        .glow {
+            position: fixed;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glow-1 { top: -10%; right: -10%; }
+        .glow-2 { bottom: -10%; left: -10%; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--foreground);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .badge {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2.5rem;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 10vw, 6.5rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            color: var(--foreground);
+        }
+
+        .hero-desc {
+            max-width: 550px;
+            color: var(--muted-foreground);
+            font-size: 1rem;
+            margin-bottom: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 2px; 
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--foreground);
+            border: 1px solid var(--border);
+        }
+
+        /* White Section Styling */
+        .section-white {
+            background-color: var(--white-section-bg);
+            color: var(--white-section-text);
+        }
+
+        .section-white .section-title {
+            color: var(--white-section-text);
+        }
+
+        .section-white .section-desc {
+            color: var(--white-section-muted);
+        }
+
+        .section-white .card {
+            background: #f8fafc;
+            border-color: var(--white-section-border);
+            padding: 0; /* Changed to handle image at top */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-content {
+            padding: 2.5rem;
+        }
+
+        .section-white .card h3 {
+            color: var(--white-section-text);
+        }
+        
+        .section-white .card p {
+            color: var(--white-section-muted);
+        }
+
+        .section-white .grid {
+            background: var(--white-section-border);
+            border-color: var(--white-section-border);
+        }
+
+        .section-white .curriculum-item {
+            border-color: var(--white-section-border);
+            color: var(--white-section-text);
+        }
+
+        /* Sectioning */
+        section {
+            padding: 140px 10%;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .section-label {
+            color: var(--accent);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .section-desc {
+            color: var(--muted-foreground);
+            max-width: 600px;
+            margin-bottom: 4rem;
+            font-size: 1rem;
+        }
+
+        /* Resource Images */
+        .resource-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--white-section-border);
+            filter: brightness(0.9);
+        }
+
+        /* Split Layout */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .split-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            filter: grayscale(100%) brightness(0.7) contrast(1.2);
+            transition: all 0.5s ease;
+        }
+
+        .section-white .split-image {
+            filter: none;
+            border-color: var(--white-section-border);
+        }
+
+        /* Grid Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .card {
+            background: var(--background);
+            transition: all 0.4s ease;
+        }
+
+        .card-num {
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Curriculum Styles */
+        .curriculum-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--foreground);
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-item:hover {
+            color: var(--accent);
+            padding-left: 1rem;
+        }
+
+        .status {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.6rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 8rem 10% 4rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: var(--foreground);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+            .split-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .nav-links { display: none; }
+            h1 { font-size: 3.5rem; }
+            section { padding: 100px 5%; }
+            .split-image { height: 350px; order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <nav>
+        <a href="#" class="logo">GD MASTERCLASS</a>
+        <div class="nav-links">
+            <a href="#intro">Intro</a>
+            <a href="#about">About</a>
+            <a href="#sections">Modules</a>
+            <a href="#lessons">Lessons</a>
+            <a href="#resources">Tools</a>
+        </div>
+    </nav>
+
+    <header id="intro">
+        <span class="badge">Session 2024 / Online</span>
+        <h1>Electronic<br>Music <span style="color: var(--accent)">Design</span></h1>
+        <p class="hero-desc">The essential manual for setting up your home studio and mastering the mechanics of professional audio production.</p>
+        <div class="btn-group">
+            <a href="#sections" class="btn btn-primary">Start Learning</a>
+            <a href="#about" class="btn btn-secondary">The Instructor</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="split-layout">
+            <div>
+                <span class="section-label">OBJECTIVES</span>
+                <h2 class="section-title">Rapid Production Enablement</h2>
+                <p class="section-desc">Beginners and amateurs will acquire the gear and know-how to set up their home studios for professional audio production purposes.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">STUDIO SETUP</h4>
+                        <p style="font-size: 0.85rem; color: var(--muted-foreground);">Hardware power and software speed requirements for modern DAWs.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">MIXING</h4>
+                        <p style="font-size: 0.85rem; color: var(--muted-foreground);">Essentials of monitoring for TV, Film, and Cinema release.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="background: var(--card); border: 1px solid var(--border); padding: 3rem; border-radius: 4px;">
+                <span class="section-label" style="opacity: 0.5;">AUTHOR</span>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">George Davis</h3>
+                <p style="color: var(--muted-foreground); font-size: 0.9rem; line-height: 1.8;">
+                    Producing since 1992, transitioning from hardware MIDI sequencers to integrated modern DAW workflows. George provides a professional bridge from amateur concepts to industry-standard releases.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHITE SECTION START -->
+    <section id="sections" class="section-white">
+        <div class="split-layout">
+            <div>
+                <span class="section-label">PHASES</span>
+                <h2 class="section-title">Workflow Architecture</h2>
+                <p class="section-desc">A structured approach to the digital studio environment, covering every technical and creative stage of production.</p>
+                
+                <div class="grid">
+                    <div class="card" style="padding: 2.5rem;">
+                        <span class="card-num">/ 01</span>
+                        <h3>Studio Hardware</h3>
+                        <p>Choosing the right computer power and speed for your specific software needs.</p>
+                    </div>
+                    <div class="card" style="padding: 2.5rem;">
+                        <span class="card-num">/ 02</span>
+                        <h3>Mixing Essentials</h3>
+                        <p>Understanding style and genre specific requirements for television and film monitoring.</p>
+                    </div>
+                    <div class="card" style="padding: 2.5rem;">
+                        <span class="card-num">/ 03</span>
+                        <h3>Theory & Design</h3>
+                        <p>Mechanics of music. Composing and arranging for keyboard, guitar, and wind players.</p>
+                    </div>
+                    <div class="card" style="padding: 2.5rem;">
+                        <span class="card-num">/ 04</span>
+                        <h3>Distribution</h3>
+                        <p>The final steps to record and navigate the digital market to publish your music effectively.</p>
+                    </div>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1000" alt="Studio Gear" class="split-image">
+        </div>
+    </section>
+    <!-- WHITE SECTION END -->
+
+    <section id="lessons">
+        <div class="split-layout">
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=1000" alt="DAW Workflow" class="split-image">
+            <div>
+                <span class="section-label">CURRICULUM</span>
+                <h2 class="section-title">Lesson Index</h2>
+                <p class="section-desc">Practical, hands-on tutorials designed to get your music sounding professional in record time.</p>
+                
+                <div class="curriculum-list">
+                    <a href="#" class="curriculum-item">
+                        <span>01. Home Studio Workspace Optimization</span>
+                        <span class="status">Offline</span>
+                    </a>
+                    <a href="#" class="curriculum-item">
+                        <span>02. Sound Design & Tone Generation</span>
+                        <span class="status">Offline</span>
+                    </a>
+                    <a href="#" class="curriculum-item">
+                        <span>03. MIDI Sequencing & Arrangement</span>
+                        <span class="status">Offline</span>
+                    </a>
+                    <a href="#" class="curriculum-item">
+                        <span>04. Advanced Mixing for Film & TV</span>
+                        <span class="status">Offline</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESOURCES SECTION -->
+    <section id="resources" class="section-white">
+        <span class="section-label">TOOLBOX</span>
+        <h2 class="section-title">Essential Assets</h2>
+        <p class="section-desc">Downloadable resources and core documentation to support your production journey.</p>
+        
+        <div class="grid">
+            <!-- Production Manual Card -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&q=80&w=600" alt="Manual" class="resource-img">
+                <div class="card-content">
+                    <h3>Production Manual</h3>
+                    <p>The core 60-page PDF guide updated for 2024 with latest techniques.</p>
+                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">Download PDF</a>
+                </div>
+            </div>
+            <!-- Terms Glossary Card -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=600" alt="Glossary" class="resource-img">
+                <div class="card-content">
+                    <h3>Terms Glossary</h3>
+                    <p>A comprehensive dictionary of digital audio and production terms.</p>
+                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">View Glossary</a>
+                </div>
+            </div>
+            <!-- External Links Card -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1459749411177-042180ce333b?auto=format&fit=crop&q=80&w=600" alt="Links" class="resource-img">
+                <div class="card-content">
+                    <h3>External Links</h3>
+                    <p>Curated list of magazines, retailers, and research sites for producers.</p>
+                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">Explore Links</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="footer-logo">GD MASTERCLASS</a>
+        <p style="color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">&copy; 2024 Master Class in Electronic Music Production.</p>
+    </footer>
+
+</body>
+</html>
