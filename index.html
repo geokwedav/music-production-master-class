@@ -1,117 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Botpress Scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/02/08/17/20260208173502-CQEZRXL1.js" defer></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Class | Electronic Music Production</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Final Project | Electronic Music Production for Beginners</title>
     <style>
         :root {
-            /* Palette */
-            --background: #000000;
-            --foreground: #ffffff;
-            --muted: #4b5563;
-            --muted-foreground: #9ca3af;
-            --accent: #22c55e; 
-            --accent-glow: rgba(34, 197, 94, 0.2);
-            --border: #1a1a1a;
-            --card: #0a0a0a;
-            --nav-bg: rgba(0, 0, 0, 0.9);
-            
-            /* White Section Variables */
-            --white-section-bg: #ffffff;
-            --white-section-text: #000000;
-            --white-section-muted: #64748b;
-            --white-section-border: #e2e8f0;
+            --brand-primary: #1ed760; 
+            --brand-accent: #6d28d9; 
+            --bg-dark: #0a0a0b;
+            --bg-surface: #18181b;
+            --bg-light: #ffffff;
+            --bg-card-light: #f4f4f5;
+            --text-primary: #ffffff;
+            --text-dark: #09090b;
+            --text-secondary: #a1a1aa;
+            --text-muted-dark: #52525b;
+            --border: #3f3f3f;
+            --border-light: #e4e4e7;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-            color: var(--foreground);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
-
-        /* Subtle Green Glows */
-        .glow {
-            position: fixed;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-        .glow-1 { top: -10%; right: -10%; }
-        .glow-2 { bottom: -10%; left: -10%; }
 
         /* Navigation */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 8%;
+            background: rgba(10, 10, 11, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
         }
 
-        .logo {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            color: var(--foreground);
-            text-decoration: none;
+        .nav-brand {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
         }
 
-        .logo::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+        .nav-brand span {
+            background: linear-gradient(to right, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
             gap: 2.5rem;
+            list-style: none;
         }
 
         .nav-links a {
-            color: var(--muted-foreground);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--text-primary);
         }
 
         /* Hero Section */
         header {
-            min-height: 100vh;
+            height: 80vh;
+            background: linear-gradient(to bottom, rgba(10,10,11,0.2), var(--bg-dark)), 
+                        url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=2000') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -120,406 +98,553 @@
             padding: 0 5%;
         }
 
-        .badge {
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.5rem 1.25rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 2.5rem;
-            background: rgba(34, 197, 94, 0.05);
-        }
-
         h1 {
-            font-size: clamp(3.5rem, 10vw, 6.5rem);
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            color: var(--foreground);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
         }
 
         .hero-desc {
-            max-width: 550px;
-            color: var(--muted-foreground);
-            font-size: 1rem;
-            margin-bottom: 3.5rem;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 2px; 
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3rem;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: #000;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--foreground);
-            border: 1px solid var(--border);
-        }
-
-        /* White Section Styling */
-        .section-white {
-            background-color: var(--white-section-bg);
-            color: var(--white-section-text);
-        }
-
-        .section-white .section-title {
-            color: var(--white-section-text);
-        }
-
-        .section-white .section-desc {
-            color: var(--white-section-muted);
-        }
-
-        .section-white .card {
-            background: #f8fafc;
-            border-color: var(--white-section-border);
-            padding: 0; /* Changed to handle image at top */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .card-content {
-            padding: 2.5rem;
-        }
-
-        .section-white .card h3 {
-            color: var(--white-section-text);
-        }
-        
-        .section-white .card p {
-            color: var(--white-section-muted);
-        }
-
-        .section-white .grid {
-            background: var(--white-section-border);
-            border-color: var(--white-section-border);
-        }
-
-        .section-white .curriculum-item {
-            border-color: var(--white-section-border);
-            color: var(--white-section-text);
-        }
-
-        /* Sectioning */
-        section {
-            padding: 140px 10%;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-        }
-
-        .section-label {
-            color: var(--accent);
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 0.3em;
-            margin-bottom: 1.5rem;
-            display: block;
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            text-decoration: none;
             font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            color: var(--foreground);
+            border-radius: 50px;
+            transition: transform 0.2s, background 0.2s;
+            display: inline-block;
+            margin: 0 5px;
         }
 
-        .section-desc {
-            color: var(--muted-foreground);
-            max-width: 600px;
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background: #e4e4e7;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 100px 10%;
+        }
+
+        .content-section.light {
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .section-header {
             margin-bottom: 4rem;
-            font-size: 1rem;
         }
 
-        /* Resource Images */
-        .resource-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--white-section-border);
-            filter: brightness(0.9);
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
         }
 
-        /* Split Layout */
-        .split-layout {
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .light .section-header p {
+            color: var(--text-muted-dark);
+        }
+
+        /* Info Grid */
+        .info-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            background: var(--bg-surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+            display: flex;
+            gap: 20px;
             align-items: center;
         }
 
-        .split-image {
-            width: 100%;
-            height: 500px;
+        .light .info-item {
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-light);
+        }
+
+        .info-item:hover {
+            border-color: var(--brand-accent);
+        }
+
+        .info-item-content {
+            flex: 1;
+        }
+
+        .info-item-img {
+            width: 120px;
+            height: 120px;
             object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            filter: grayscale(100%) brightness(0.7) contrast(1.2);
-            transition: all 0.5s ease;
+            border-radius: 8px;
+            flex-shrink: 0;
         }
 
-        .section-white .split-image {
-            filter: none;
-            border-color: var(--white-section-border);
+        .info-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
 
-        /* Grid Cards */
-        .grid {
+        .light .info-item h3 {
+            color: var(--text-dark);
+        }
+
+        .info-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .light .info-item p {
+            color: var(--text-muted-dark);
+        }
+
+        /* Manual Grid */
+        .manual-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
         }
 
         .card {
-            background: var(--background);
-            transition: all 0.4s ease;
-        }
-
-        .card-num {
-            font-family: monospace;
-            color: var(--accent);
-            font-size: 0.75rem;
-            margin-bottom: 1.5rem;
+            background: var(--bg-surface);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+            text-decoration: none;
+            color: inherit;
             display: block;
         }
 
-        /* Curriculum Styles */
-        .curriculum-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            color: var(--foreground);
-            transition: all 0.3s ease;
+        .light .card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
         }
 
-        .curriculum-item:hover {
-            color: var(--accent);
-            padding-left: 1rem;
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-accent);
         }
 
-        .status {
-            font-family: monospace;
-            font-size: 0.7rem;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 0.2rem 0.6rem;
+        .card-img-wrapper {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            color: var(--brand-accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .light .card p {
+            color: var(--text-muted-dark);
+        }
+
+        /* Call to Action Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--brand-accent), #4f46e5);
+            padding: 80px 10%;
+            text-align: center;
+            border-radius: 20px;
+            margin: 0 5% 100px;
+        }
+
+        .cta-banner h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
         }
 
         /* Footer */
         footer {
-            padding: 8rem 10% 4rem;
-            text-align: center;
+            background: var(--bg-surface);
+            padding: 80px 10% 40px;
+            border-top: 1px solid var(--border);
         }
 
-        .footer-logo {
-            font-weight: 800;
-            font-size: 1rem;
-            letter-spacing: 0.2em;
-            color: var(--foreground);
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .footer-col h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
             text-decoration: none;
-            margin-bottom: 2rem;
-            display: block;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         @media (max-width: 900px) {
-            .split-layout { grid-template-columns: 1fr; gap: 3rem; }
-            .nav-links { display: none; }
+            .info-grid { grid-template-columns: 1fr; }
+            .info-item { flex-direction: column; text-align: center; }
+            .info-item-img { width: 100%; height: 200px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
             h1 { font-size: 3.5rem; }
-            section { padding: 100px 5%; }
-            .split-image { height: 350px; order: -1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-
     <nav>
-        <a href="#" class="logo">GD MASTERCLASS</a>
-        <div class="nav-links">
-            <a href="#intro">Intro</a>
-            <a href="#about">About</a>
-            <a href="#sections">Modules</a>
-            <a href="#lessons">Lessons</a>
-            <a href="#resources">Tools</a>
+        <div class="nav-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <span>ELECTRONIC MUSIC PRODUCTION</span>
         </div>
+        <ul class="nav-links">
+            <li><a href="#intro">Objectives</a></li>
+            <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/raw/main/introduction-to-the-course.pdf" target="_blank">Overview</a></li>
+            <li><a href="#lessons">Lessons</a></li>
+            <li><a href="#manual">Register</a></li>
+            <!-- BROCHURE LINK TOP RIGHT -->
+            <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/Master%20Class%20Brochure%20and%20Prices.pdf?raw=true" target="_blank">BROCHURE</a></li>
+        </ul>
     </nav>
 
-    <header id="intro">
-        <span class="badge">Session 2024 / Online</span>
-        <h1>Electronic<br>Music <span style="color: var(--accent)">Design</span></h1>
-        <p class="hero-desc">The essential manual for setting up your home studio and mastering the mechanics of professional audio production.</p>
-        <div class="btn-group">
-            <a href="#sections" class="btn btn-primary">Start Learning</a>
-            <a href="#about" class="btn btn-secondary">The Instructor</a>
-        </div>
+    <header id="home">
+        <h1>Master Class in Electronic Music Production for <b>Beginners</b></h1>
+        <p class="hero-desc">The essential guide to building a modern home studio and mastering MIDI integration and producing your own music.</p>
+        <a href="#lessons" class="btn-primary">See course sections and lessons</a>
+        <a href="#manual" class="btn-primary">Register</a>
     </header>
 
-    <section id="about">
-        <div class="split-layout">
-            <div>
-                <span class="section-label">OBJECTIVES</span>
-                <h2 class="section-title">Rapid Production Enablement</h2>
-                <p class="section-desc">Beginners and amateurs will acquire the gear and know-how to set up their home studios for professional audio production purposes.</p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-                    <div>
-                        <h4 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">STUDIO SETUP</h4>
-                        <p style="font-size: 0.85rem; color: var(--muted-foreground);">Hardware power and software speed requirements for modern DAWs.</p>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">MIXING</h4>
-                        <p style="font-size: 0.85rem; color: var(--muted-foreground);">Essentials of monitoring for TV, Film, and Cinema release.</p>
+    <main>
+        <!-- Project Overview -->
+        <section class="content-section light" id="intro">
+            <div class="section-header">
+                <h2>Course Objectives</h2>
+                <p>Step by steps goals for professional audio production.</p>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-content">
+                        <p>Computer hardware and software were expensive in the seventies, eighties, and even early nineties. Only top-notch bands like Tangerine Dream, Emerson Lake and Palmer, and musicians like Herbie Hancock and Stevie Wonder could get access to such massive and expensive instruments, of course, by courtesy of the manufacturers, thus, straight from the factory. </p><br>
+                        <p>At present, with the availability of affordable computers and software at our disposal, anyone can make music and I believe, must be encouraged to make music, for fun, or even as a profession. </p><br>
+                        <p>Besides the availability of computer hardware and software, several methods have been written over the past few years on how to publish and sell your audio work to the public.</p><br>
+                        <p>The aim of this course is to look at all the possibilities in electronic music production and processes such as setting up a computer-based home studio, acquiring the necessary tools and gadget, getting a deep dive into the essentials of monitoring and mixing. In addition, basic composing and arranging music and the mechanics of music, as well as ways of publishing your masterpiece will be covered. Let us have fun together for a hobby that is also enriching for the soul!</p><br>
+                        <!-- SEE THE MASTER CLASS BROCHURE LINK -->
+                        <p><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/Master%20Class%20Brochure%20and%20Prices.pdf?raw=true" target="_blank" style="color: var(--brand-accent); font-weight: 700; text-decoration: none;">SEE THE MASTER CLASS BROCHURE!!</a></p>
                     </div>
                 </div>
             </div>
-            <div style="background: var(--card); border: 1px solid var(--border); padding: 3rem; border-radius: 4px;">
-                <span class="section-label" style="opacity: 0.5;">AUTHOR</span>
-                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">George Davis</h3>
-                <p style="color: var(--muted-foreground); font-size: 0.9rem; line-height: 1.8;">
-                    Producing since 1992, transitioning from hardware MIDI sequencers to integrated modern DAW workflows. George provides a professional bridge from amateur concepts to industry-standard releases.
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-content">
+                        <h3>Equipment</h3>
+                        <p>Exploring the computer power and throughput speeds required to handle high-performance DAW software without latency bottlenecks.</p>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graphic-equipment-two.jpg" class="info-item-img" alt="Equipment">
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-content">
+                        <h3>Musical Stimulus</h3>
+                        <p>Leveraging basic keyboard and guitar skills for creative hobbyist composition and arrangement.</p>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/dreamstimefree_5747861.jpg" class="info-item-img" alt="Musical Stimulus">
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-content">
+                        <h3>Essentials of mixing</h3>
+                        <p>Acquiring the know-how to achieve professional-grade balance suitable for television, radio, and digital streaming standards.</p>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-musical-stimulus.jpg" class="info-item-img" alt="Essentials of mixing">
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-content">
+                        <h3>Cultural Design</h3>
+                        <p>Discovering melodic and rhythmic structures that resonate with diverse ethnic and global music forms.</p>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-cultural-design.jpg" class="info-item-img" alt="Cultural Design">
+                </div>
+            </div>
+        </section>
+
+        <!-- The MIDI Protocol -->
+        <section class="content-section" style="background: var(--bg-surface);">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 2rem;">The Power of MIDI</h2>
+                <p style="font-size: 1.4rem; color: var(--text-secondary); font-style: italic;">
+                    "Musical Instruments' Digital Interface. A universal communication protocol enabling performance data transfer between hardware, software, and creative minds."
                 </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WHITE SECTION START -->
-    <section id="sections" class="section-white">
-        <div class="split-layout">
-            <div>
-                <span class="section-label">PHASES</span>
-                <h2 class="section-title">Workflow Architecture</h2>
-                <p class="section-desc">A structured approach to the digital studio environment, covering every technical and creative stage of production.</p>
-                
-                <div class="grid">
-                    <div class="card" style="padding: 2.5rem;">
-                        <span class="card-num">/ 01</span>
-                        <h3>Studio Hardware</h3>
-                        <p>Choosing the right computer power and speed for your specific software needs.</p>
-                    </div>
-                    <div class="card" style="padding: 2.5rem;">
-                        <span class="card-num">/ 02</span>
-                        <h3>Mixing Essentials</h3>
-                        <p>Understanding style and genre specific requirements for television and film monitoring.</p>
-                    </div>
-                    <div class="card" style="padding: 2.5rem;">
-                        <span class="card-num">/ 03</span>
-                        <h3>Theory & Design</h3>
-                        <p>Mechanics of music. Composing and arranging for keyboard, guitar, and wind players.</p>
-                    </div>
-                    <div class="card" style="padding: 2.5rem;">
-                        <span class="card-num">/ 04</span>
-                        <h3>Distribution</h3>
-                        <p>The final steps to record and navigate the digital market to publish your music effectively.</p>
-                    </div>
-                </div>
+        <!-- Course Catalog (Manual Grid) -->
+        <section class="content-section light" id="manual">
+            <div class="section-header">
+                <h2>Course sections</h2>
+                <p>Explore the core chapters of the production process.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1000" alt="Studio Gear" class="split-image">
-        </div>
-    </section>
-    <!-- WHITE SECTION END -->
 
-    <section id="lessons">
-        <div class="split-layout">
-            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=1000" alt="DAW Workflow" class="split-image">
-            <div>
-                <span class="section-label">CURRICULUM</span>
-                <h2 class="section-title">Lesson Index</h2>
-                <p class="section-desc">Practical, hands-on tutorials designed to get your music sounding professional in record time.</p>
-                
-                <div class="curriculum-list">
-                    <a href="#" class="curriculum-item">
-                        <span>01. Home Studio Workspace Optimization</span>
-                        <span class="status">Offline</span>
-                    </a>
-                    <a href="#" class="curriculum-item">
-                        <span>02. Sound Design & Tone Generation</span>
-                        <span class="status">Offline</span>
-                    </a>
-                    <a href="#" class="curriculum-item">
-                        <span>03. MIDI Sequencing & Arrangement</span>
-                        <span class="status">Offline</span>
-                    </a>
-                    <a href="#" class="curriculum-item">
-                        <span>04. Advanced Mixing for Film & TV</span>
-                        <span class="status">Offline</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="manual-grid">
+                <!-- CHAPTER 01 -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/SETTING%20UP%20YOUR%20HOME%20STUDIO.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/homemusicstudio-1.jpg" class="card-img" alt="Home Studio Setup">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">Chapter 01</span>
+                        <h3>Home Studio Setup</h3>
+                        <p>Essential soundproofing strategies and the "room-within-a-room" philosophy for noise isolation.</p>
+                    </div>
+                </a>
 
-    <!-- RESOURCES SECTION -->
-    <section id="resources" class="section-white">
-        <span class="section-label">TOOLBOX</span>
-        <h2 class="section-title">Essential Assets</h2>
-        <p class="section-desc">Downloadable resources and core documentation to support your production journey.</p>
-        
-        <div class="grid">
-            <!-- Production Manual Card -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&q=80&w=600" alt="Manual" class="resource-img">
-                <div class="card-content">
-                    <h3>Production Manual</h3>
-                    <p>The core 60-page PDF guide updated for 2024 with latest techniques.</p>
-                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">Download PDF</a>
-                </div>
+                <!-- CHAPTER 02 -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EQUIPMENT%20FOR%20THE%20STUDIO.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=800" class="card-img" alt="Equipment and Gear">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">Chapter 02</span>
+                        <h3>Equipment and gear</h3>
+                        <p>In-depth analysis of synthesizers, samplers, and sequencers at the heart of the MIDI studio.</p>
+                    </div>
+                </a>
+
+                <!-- CHAPTER 03 -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/the-essentials-of-mixing-emp-2.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800" class="card-img" alt="Essentials of Mixing">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">Chapter 03</span>
+                        <h3>Essentials of mixing</h3>
+                        <p>Matching the various instruments for each to be present to contribute to a song.</p>
+                    </div>
+                </a>
+
+                <!-- CHAPTER 04 -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/the-essentials-of-monitoring-and-acoustics-emp-2.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800" class="card-img" alt="Monitoring and Acoustics">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">Chapter 04</span>
+                        <h3>Monitoring and acoustics</h3>
+                        <p>Selecting the right amplifiers and monitors for an honest representation of frequency response.</p>
+                    </div>
+                </a>
+
+                <!-- CHAPTER 05 -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/mechanics-of-music-2.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-culture-des.jpg" class="card-img" alt="The mechanics of music">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">Chapter 05</span>
+                        <h3>The mechanics of music</h3>
+                        <p>Understanding chord structures, harmony, and different chord types.</p>
+                    </div>
+                </a>
             </div>
-            <!-- Terms Glossary Card -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=600" alt="Glossary" class="resource-img">
-                <div class="card-content">
-                    <h3>Terms Glossary</h3>
-                    <p>A comprehensive dictionary of digital audio and production terms.</p>
-                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">View Glossary</a>
-                </div>
+        </section>
+
+        <!-- Lessons Section -->
+        <section class="content-section light" id="lessons">
+            <div class="section-header">
+                <h2>Lessons</h2>
+                <p>Explore the specific lessons of this master class.</p>
             </div>
-            <!-- External Links Card -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1459749411177-042180ce333b?auto=format&fit=crop&q=80&w=600" alt="Links" class="resource-img">
-                <div class="card-content">
-                    <h3>External Links</h3>
-                    <p>Curated list of magazines, retailers, and research sites for producers.</p>
-                    <a href="#" style="color: var(--accent); font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 2rem; display: block; text-transform: uppercase;">Explore Links</a>
-                </div>
+
+            <div class="manual-grid">
+                <!-- Lesson 1 (REPLACED) -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EMP%20Master%20Class%20Lesson%201.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-home-studio.jpg" class="card-img" alt="Lesson 1 - Home studio setup">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">LESSON 01</span>
+                        <h3>Home studio setup</h3>
+                        <p>Essential soundproofing strategies and the "room-within-a-room" philosophy for noise isolation.</p>
+                    </div>
+                </a>
+
+                <!-- Lesson 2 (REPLACED) -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EMP%20MASTER%20CLASS%20LESSON%202.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-equipment-geaar.jpg" class="card-img" alt="Lesson 2 - Equipment and gear">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">LESSON 02</span>
+                        <h3>Equipment and gear</h3>
+                        <p>In-depth analysis of synthesizers, samplers, and sequencers at the heart of the MIDI studio.</p>
+                    </div>
+                </a>
+
+                <!-- Lesson 3 (REPLACED) -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EMP%20MASTER%20CLASS%20LESSON%203%20-%20MIXING.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-mixing.jpg" class="card-img" alt="Lesson 3 - Essentials of mixing">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">LESSON 03</span>
+                        <h3>Essentials of mixing</h3>
+                        <p>Matching the various instruments for each to be present to contribute to a song.</p>
+                    </div>
+                </a>
+
+                <!-- Lesson 4 (REPLACED) -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EMP%20MASTER%20CLASS%20LESSON%204.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-monitoring.jpg" class="card-img" alt="Lesson 4 - Monitoring and acoustics">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">LESSON 04</span>
+                        <h3>Monitoring and acoustics</h3>
+                        <p>Selecting the right amplifiers and monitors for an honest representation of frequency response.</p>
+                    </div>
+                </a>
+
+                <!-- Lesson 5 (REPLACED) -->
+                <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EMP%20MASTER%20CLASS%20LESSON%205.pdf?raw=true" target="_blank" class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://raw.githubusercontent.com/geokwedav/final-project-gen-ai-for-work-and-research/main/a-graph-cultural-design.jpg" class="card-img" alt="Lesson 5 - The mechanics of music">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-label">LESSON 05</span>
+                        <h3>The mechanics of music</h3>
+                        <p>Understanding chord structures, harmony, and different chord types.</p>
+                    </div>
+                </a>
             </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <div class="cta-banner">
+            <h2>Ready to produce your own music?</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #e4e4e7;">Then click the button below to register for the master class.</p>
+            <a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/" target="_blank" class="btn-primary">Register</a>
         </div>
-    </section>
+    </main>
 
     <footer>
-        <a href="#" class="footer-logo">GD MASTERCLASS</a>
-        <p style="color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">&copy; 2024 Master Class in Electronic Music Production.</p>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <!-- ABOUT THE INSTRUCTOR LINK -->
+                <h3><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/Instructor's%20cv%20and%20photo.pdf?raw=true" target="_blank" style="color: inherit; text-decoration: none;">ABOUT THE INSTRUCTOR</a></h3>
+                <p>Electronic Music Production for Beginners</p>
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: #52525b;">A George Davis Master Class</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sections</h4>
+                <ul>
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/raw/main/introduction-to-the-course.pdf" target="_blank">Introduction</a></li>
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/SETTING%20UP%20YOUR%20HOME%20STUDIO.pdf?raw=true" target="_blank">Studio Setup</a></li>
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/EQUIPMENT%20FOR%20THE%20STUDIO.pdf?raw=true" target="_blank">Equipment</a></li>
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/the-essentials-of-mixing-emp-2.pdf?raw=true" target="_blank">Mixing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <!-- MIDI GLOSSARIES (REPLACED) -->
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/Glossary.pdf?raw=true" target="_blank">MIDI GLOSSARIES</a></li>
+                    <!-- WEB REFERENCES (REPLACED) -->
+                    <li><a href="https://github.com/geokwedav/final-project-gen-ai-for-work-and-research/blob/main/Sources%20and%20references.pdf?raw=true" target="_blank">WEB REFERENCES</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 George Davis. All rights reserved.</p>
+            <p>Built for Electronic Music Excellence</p>
+        </div>
     </footer>
-
 </body>
 </html>
